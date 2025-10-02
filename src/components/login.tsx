@@ -25,12 +25,15 @@ export default function LoginPage() {
             const { data } = await supabase.auth.getSession();
             setSession(data.session);
             if (data.session) {
-                router.replace('/'); // Redirect if already signed in
+                router.replace('/crypto');
             }
         };
         getSession();
         const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
             setSession(session);
+            if (session) {
+                router.replace('/crypto');
+            }
         });
         return () => {
             listener.subscription.unsubscribe();
@@ -47,29 +50,13 @@ export default function LoginPage() {
         });
         if (error) {
             setError(error.message);
+        } else {
+            router.replace('/crypto');
         }
         setLoading(false);
     };
 
-    const handleSignOut = async () => {
-        setLoading(true);
-        await supabase.auth.signOut();
-        setSession(null);
-        setLoading(false);
-    };
-
-    if (session) {
-        return (
-            <section className="flex min-h-screen items-center justify-center">
-                <div className="bg-muted p-8 rounded shadow">
-                    <h2 className="text-xl font-semibold mb-4">You are signed in</h2>
-                    <Button onClick={handleSignOut} disabled={loading}>
-                        {loading ? "Signing Out..." : "Sign Out"}
-                    </Button>
-                </div>
-            </section>
-        );
-    }
+    if (session) return null;
 
     return (
         <section className="flex min-h-screen bg-zinc-50 px-4 py-16 md:py-32 dark:bg-transparent">

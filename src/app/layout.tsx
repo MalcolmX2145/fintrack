@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { User } from "@supabase/supabase-js";
 import { supabase } from "@/lib/supabaseClient";
 import { useRouter, usePathname } from "next/navigation";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -59,13 +60,22 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {!hideHeader && !loading && (
+         <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {!hideHeader && !loading && (
           <HeroHeader 
             isAuthenticated={!!user} 
             onLogout={handleLogout}
+            userEmail={user?.email ?? undefined}
           />
         )}
         {children}
+          </ThemeProvider>
+        
       </body>
     </html>
   );
