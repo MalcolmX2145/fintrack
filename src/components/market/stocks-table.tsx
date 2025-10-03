@@ -11,10 +11,14 @@ import {
 
 type Row = {
   id: string
+  rank?: number
   name: string
   symbol: string
   price: number | null
-  changePercent: number | null
+  change1d?: number | null
+  change1h?: number | null
+  change7d?: number | null
+  marketCap?: number | null
   volume: number | null
 }
 
@@ -29,21 +33,21 @@ export function StocksTable({ rows }: { rows: Row[] }) {
     <Table>
       <TableHeader>
         <TableRow>
+          <TableHead className="w-10">#</TableHead>
           <TableHead>Name</TableHead>
           <TableHead>Symbol</TableHead>
           <TableHead className="text-right">Price</TableHead>
-          <TableHead className="text-right">Change %</TableHead>
-          <TableHead className="text-right">Volume</TableHead>
+          <TableHead className="text-right">24h %</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         {rows.map((r) => (
           <TableRow key={r.id}>
+            <TableCell>{r.rank ?? ''}</TableCell>
             <TableCell className="font-medium">{r.name}</TableCell>
             <TableCell className="uppercase text-muted-foreground">{r.symbol}</TableCell>
             <TableCell className="text-right">{r.price != null ? `$${r.price.toLocaleString()}` : '-'}</TableCell>
-            <TableCell className="text-right"><Pct value={r.changePercent} /></TableCell>
-            <TableCell className="text-right">{r.volume != null ? r.volume.toLocaleString() : '-'}</TableCell>
+            <TableCell className="text-right"><Pct value={r.change1d ?? null} /></TableCell>
           </TableRow>
         ))}
       </TableBody>

@@ -56,7 +56,7 @@ export default function RootLayout({
   const hideHeader = pathname?.startsWith('/login') || pathname?.startsWith('/register');
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

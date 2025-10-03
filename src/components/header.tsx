@@ -9,8 +9,8 @@ import { ThemeToggle } from '@/components/ThemeToggle'
 const menuItems = [
     { name: 'Cryptocurrencies', href: '/crypto' },
     { name: 'Stocks', href: '/stocks' },
-    { name: 'ETFs', href: 'etfs' },
-    { name: 'Your Portfolio', href: 'portfolio' },
+    { name: 'ETFs', href: '/etfs' },
+    { name: 'Your Portfolio', href: '/portfolio' },
 ]
 
 type HeroHeaderProps = {

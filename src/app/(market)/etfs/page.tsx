@@ -26,7 +26,7 @@ export default function EtfsPage() {
   }, [])
 
   return (
-    <div className="mx-auto max-w-7xl p-6">
+    <div className="mx-auto max-w-7xl p-6 pt-24">
       <h1 className="text-2xl font-semibold mb-4">ETFs</h1>
       {loading ? (
         <div className="text-sm text-muted-foreground">Loading…</div>
